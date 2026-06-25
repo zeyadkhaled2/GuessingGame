@@ -1,7 +1,10 @@
 import { View } from 'react-native';
 
 function GameScreen() {
-  return <View />;
-}
+    return (
+        <View>
+
+        </View>
+)}
 
 export default GameScreen;
