@@ -1,7 +1,10 @@
 import { View } from 'react-native';
 
 function GameOverScreen() {
-  return <View />;
-}
+    return (
+        <View>
+
+        </View>
+)}
 
 export default GameOverScreen;
