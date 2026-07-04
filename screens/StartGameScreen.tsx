@@ -4,7 +4,7 @@ import PrimaryButton from '../components/PrimaryButton';
 function StartGameScreen() {
     return (
         <View style = {styles.inputContainer}>
-            <TextInput style = {styles.numberInput} maxLength={2}/>
+            <TextInput style = {styles.numberInput} maxLength={2} keyboardType='number-pad'/>
             <PrimaryButton> Reset </PrimaryButton>
             <PrimaryButton> Confirm </PrimaryButton>
         </View>
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginHorizontal: 24,
         padding: 16,
-        backgroundColor: "#72062c",
+        backgroundColor: "#4e0329",
         borderRadius: 8,
         elevation: 4, // Android only property
         shadowColor: "black",    // IOS property
