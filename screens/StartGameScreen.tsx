@@ -3,7 +3,7 @@ import PrimaryButton from '../components/PrimaryButton';
 
 function StartGameScreen() {
     return (
-        <View style = {styles.inputContainer}>
+        <View style = {[styles.inputContainer, {flexDirection: 'column'}]}>
             <TextInput style = {styles.numberInput} maxLength={2}/>
             <PrimaryButton> Reset </PrimaryButton>
             <PrimaryButton> Confirm </PrimaryButton>
