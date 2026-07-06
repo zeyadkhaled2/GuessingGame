@@ -1,13 +1,39 @@
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Alert } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
+import { useState } from 'react';
 
 function StartGameScreen() {
+
+    const [enteredNumber, setEnteredNumber] = useState('')
+    function numberInputHandler (enteredText: string){
+        setEnteredNumber(enteredText)
+    }
+    function confirmInputHandler (){
+        const chosenNumber = parseInt(enteredNumber);
+        if (isNaN(chosenNumber) || chosenNumber <0 || chosenNumber >= 100){
+            // show alert
+            Alert.alert(
+                "Invalid Number",
+                "Number has to be a number between 1 and 99.",
+                [{text: 'okay' , style: 'destructive', onPress: resetInputHandler}]
+             )
+            return
+        }
+    }
+    function resetInputHandler (){
+        setEnteredNumber('')
+    }
     return (
         <View style={styles.inputContainer}>
-            <TextInput style={styles.numberInput} maxLength={2} />
-            <View style = {styles.buttonsContainer}>
-                <PrimaryButton> Reset </PrimaryButton>
-                <PrimaryButton> Confirm </PrimaryButton>
+            <TextInput
+                style={styles.numberInput}
+                maxLength={2}
+                value={enteredNumber} 
+                onChangeText={numberInputHandler}
+                />
+            <View style={styles.buttonsContainer}>
+                <PrimaryButton onPress={resetInputHandler}> Reset </PrimaryButton>
+                <PrimaryButton onPress={confirmInputHandler}> Confirm </PrimaryButton>
             </View>
         </View>
     )
@@ -27,7 +53,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         elevation: 4, // Android only property
         shadowColor: "black",    // IOS property
-        shadowOffset: { width: 0, height: 2 }, // IOS property
+        shadowOffset: { width: 0, height: 2 }, // IOS property 
         shadowRadius: 6, // IOS property
         shadowOpacity: 0.25, // IOS property
         flexDirection: 'column'
