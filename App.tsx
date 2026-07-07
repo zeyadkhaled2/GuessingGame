@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import StartGameScreen from './screens/StartGameScreen';
 import { useState } from 'react';
 import GameScreen from './screens/GameScreen';
-
+import Colors from './constants/colors';
 export default function App() {
   const [userNumber, setUserNumber] = useState(0);
 
@@ -15,13 +15,13 @@ export default function App() {
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
   if (userNumber) {
-    screen = <GameScreen />;
+    screen = <GameScreen userNumber={userNumber} />;
   }
 
   return (
     <SafeAreaView style={styles.rootScreen}>
       <LinearGradient
-        colors={['#4e0329', '#ddb52f']}
+        colors={[Colors.primary700, Colors.accent500]}
         style={styles.rootScreen}
       >
         {screen}
