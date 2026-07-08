@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     numberInput: {
-        height: 50,
-        width: 40,
+        height: 70,
+        width: 50,
         fontSize: 32,
         borderBottomColor: Colors.accent500,
         borderBottomWidth: 2,
