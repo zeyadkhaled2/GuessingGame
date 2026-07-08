@@ -1,28 +1,51 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Alert } from 'react-native';
 import Title from '../components/ui/Title';
 import { useState } from 'react';
 import NumberContainer from '../components/game/NumberContainer';
+import PrimaryButton from '../components/ui/PrimaryButton';
 
 function generateRandomBetween(
     min: number,
     max: number,
     exclude: number
-  ): number {
+): number {
     const randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  
+
     if (randomNumber === exclude) {
-      return generateRandomBetween(min, max, exclude);
+        return generateRandomBetween(min, max, exclude);
     } else {
-      return randomNumber;
+        return randomNumber;
     }
-  }
+}
+
+let minBoundary = 1;
+let maxBoundary = 100;
 
 
 
-function GameScreen({userNumber}) {
-    const initalGuess = generateRandomBetween(1,100,userNumber)
+function GameScreen({ userNumber }) {
+    const initalGuess = generateRandomBetween
+        (minBoundary,
+        maxBoundary,
+        userNumber)
     const [currentGuess, setCurrentGuess] = useState(initalGuess)
-
+    
+    function nextGuessHandler(direction: string) { // lower or greater
+        if ((direction === 'lower'  && currentGuess < userNumber) || 
+           (direction === 'greater'  && currentGuess > userNumber)){
+            Alert.alert("Don't lie !!", "You know its wrong",[{text: "Sorry", style: 'cancel'}]);
+            return;    
+        }
+        if (direction === 'lower') {
+            maxBoundary = currentGuess - 1
+        }
+        else{
+            minBoundary = currentGuess + 1
+        }
+        console.log(minBoundary, maxBoundary)
+        const newRandomNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
+        setCurrentGuess(newRandomNumber);
+    }
 
 
     return (
@@ -31,10 +54,13 @@ function GameScreen({userNumber}) {
             <NumberContainer>{currentGuess}</NumberContainer>
             <View>
                 <Text>Higher or Lower</Text>
+                <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
+                <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+
             </View>
         </View>
     )
-}
+} 
 
 const styles = StyleSheet.create({
     screen: {
@@ -50,8 +76,8 @@ const styles = StyleSheet.create({
         borderColor: "#ddb52f",
         borderRadius: 20,
         padding: 12
+    },
 
-    }
 })
 
 
